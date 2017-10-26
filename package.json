@@ -6,6 +6,7 @@
     "husky": "^0.14.3",
     "lint-staged": "^4.3.0",
     "prettier": "^1.7.4",
+    "ramda": "^0.25.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-md": "^1.2.1",
@@ -27,6 +28,9 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": ["prettier --single-quote --write --no-semi --print-width 120", "git add"]
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write --no-semi --print-width 120",
+      "git add"
+    ]
   }
 }

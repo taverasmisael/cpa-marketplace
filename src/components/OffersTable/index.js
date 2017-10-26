@@ -5,6 +5,8 @@ import * as SortBy from './sorting'
 
 import { toCurrency, toNumber, toPercentaje } from '../../utilities/strings'
 
+import './OffesTable.css'
+
 class OffersTable extends PureComponent {
   state = {
     sortedOffers: [],
@@ -38,6 +40,7 @@ class OffersTable extends PureComponent {
       <DataTable plain>
         <TableHeader>
           <TableRow>
+            <TableColumn>Image</TableColumn>
             <TableColumn onClick={this.sortName} sortIconBefore={false} {...this.amISorted('name')}>
               Name
             </TableColumn>
@@ -64,8 +67,9 @@ class OffersTable extends PureComponent {
   }
 
   renderRows(offers) {
-    return offers.map(({ id, name, payout, revenue, clicks, cr, erpm }) => (
-      <TableRow key={id}>
+    return offers.map(({ id, image, name, payout, revenue, clicks, cr, erpm }) => (
+      <TableRow key={id} className="Offer">
+        <TableColumn><img src={image} alt="" className="Offer__image" /></TableColumn>
         <TableColumn>{name}</TableColumn>
         <TableColumn numeric>{toCurrency(payout)}</TableColumn>
         <TableColumn numeric>{toCurrency(revenue)}</TableColumn>

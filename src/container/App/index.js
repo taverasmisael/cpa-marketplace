@@ -17,10 +17,10 @@ class App extends PureComponent {
         cpa: true,
         cpi: false,
         cpl: true
-      },
-      offers: [],
-      countries: []
+      }
     },
+    offers: [],
+    countries: [],
     offersSort: {
       prop: 'name',
       ascending: true
@@ -36,8 +36,9 @@ class App extends PureComponent {
     this.setState({ offers: sortOfferBy[sortBy](offers), offersSort })
   }
 
-  isSortingColumn = prop =>
+  isColumnSorted = prop =>
     this.state.offersSort.prop === prop ? { sorted: this.state.offersSort.ascending } : { sorted: false }
+  amISortingColumn = prop => this.state.offersSort.prop === prop
   componentDidMount() {
     LoadOffers().then(offers => this.setState({ offers }))
     LoadCountries().then(countries => this.setState({ countries }))
@@ -45,7 +46,7 @@ class App extends PureComponent {
 
   render() {
     const { currentFilter, countries, offers } = this.state
-    const { onSortOffersTable, isSortingColumn } = this
+    const { onSortOffersTable, isColumnSorted, amISortingColumn } = this
     return (
       <Shell currentFilter={currentFilter} categories={Categories} countries={countries}>
         <div className="App">
@@ -56,7 +57,12 @@ class App extends PureComponent {
           <div className="dividers__border-example">
             <div className="md-divider-border md-divider-border--top" />
           </div>
-          <OffersTable offers={offers} onSort={onSortOffersTable} amISorted={isSortingColumn} />
+          <OffersTable
+            offers={offers}
+            onSort={onSortOffersTable}
+            amISorted={isColumnSorted}
+            amISorting={amISortingColumn}
+          />
         </div>
       </Shell>
     )

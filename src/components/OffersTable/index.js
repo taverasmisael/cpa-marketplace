@@ -12,7 +12,9 @@ const renderRows = offers =>
         <img src={image} alt="" className="Offer__image" />
       </TableColumn>
       <TableColumn>{name}</TableColumn>
-      <TableColumn numeric>{toCurrency(payout)}</TableColumn>
+      <TableColumn numeric className="money">
+        {toCurrency(payout)}
+      </TableColumn>
       <TableColumn numeric>{toCurrency(revenue)}</TableColumn>
       <TableColumn numeric>{toNumber(clicks)}</TableColumn>
       <TableColumn numeric>{toPercentaje(cr)}</TableColumn>
@@ -20,27 +22,62 @@ const renderRows = offers =>
     </TableRow>
   ))
 
-const OffersTable = ({ offers = [], onSort, amISorted }) => (
+const OffersTable = ({ offers = [], onSort, amISorted, amISorting }) => (
   <DataTable plain>
     <TableHeader>
       <TableRow>
         <TableColumn>Image</TableColumn>
-        <TableColumn onClick={onSort('name')} sortIconBefore={false} {...amISorted('name')}>
+        <TableColumn
+          onClick={onSort('name')}
+          className={{ 'sorting-column': amISorting('name') }}
+          sortIconBefore={false}
+          {...amISorted('name')}
+        >
           Name
         </TableColumn>
-        <TableColumn numeric onClick={onSort('payout')} sortIconBefore={false} {...amISorted('payout')}>
+        <TableColumn
+          numeric
+          onClick={onSort('payout')}
+          className={{ 'sorting-column': amISorting('payout') }}
+          sortIconBefore={false}
+          {...amISorted('payout')}
+        >
           Payout
         </TableColumn>
-        <TableColumn numeric onClick={onSort('revenue')} sortIconBefore={false} {...amISorted('revenue')}>
+        <TableColumn
+          numeric
+          onClick={onSort('revenue')}
+          className={{ 'sorting-column': amISorting('revenue') }}
+          sortIconBefore={false}
+          {...amISorted('revenue')}
+        >
           Revenue
         </TableColumn>
-        <TableColumn numeric onClick={onSort('clicks')} sortIconBefore={false} {...amISorted('clicks')}>
+        <TableColumn
+          numeric
+          onClick={onSort('clicks')}
+          className={{ 'sorting-column': amISorting('clicks') }}
+          sortIconBefore={false}
+          {...amISorted('clicks')}
+        >
           Clicks
         </TableColumn>
-        <TableColumn numeric onClick={onSort('cr')} sortIconBefore={false} {...amISorted('cr')}>
+        <TableColumn
+          numeric
+          onClick={onSort('cr')}
+          className={{ 'sorting-column': amISorting('cr') }}
+          sortIconBefore={false}
+          {...amISorted('cr')}
+        >
           CR
         </TableColumn>
-        <TableColumn numeric onClick={onSort('erpm')} sortIconBefore={false} {...amISorted('erpm')}>
+        <TableColumn
+          numeric
+          onClick={onSort('erpm')}
+          className={{ 'sorting-column': amISorting('erpm') }}
+          sortIconBefore={false}
+          {...amISorted('erpm')}
+        >
           eRPM
         </TableColumn>
       </TableRow>

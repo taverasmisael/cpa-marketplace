@@ -5,3 +5,7 @@ $md-primary-color: $md-deep-purple-600;
 $md-secondary-color: $md-green-a-400;
 
 @include react-md-everything;
+
+.md-list--nested-1 .md-list-tile {
+  padding: 16px;
+}

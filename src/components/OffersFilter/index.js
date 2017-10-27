@@ -12,7 +12,13 @@ const OffersFilter = ({
     cpi: false,
     cpl: false
   },
-  onFilter
+  onFilter,
+  onNameChange,
+  onCountryChange,
+  onCategoryChange,
+  toggleCPA,
+  toggleCPI,
+  toggleCPL
 }) => (
   <form className="md-grid" onSubmit={onFilter}>
     <h2>Filter</h2>
@@ -22,6 +28,7 @@ const OffersFilter = ({
       lineDirection="center"
       placeholder="New iPhone"
       className="md-cell--bottom"
+      onChange={onNameChange}
     />
     <SelectField
       id="countries"
@@ -29,21 +36,23 @@ const OffersFilter = ({
       placeholder="Placeholder"
       className="md-cell--12"
       menuItems={countries}
+      itemValue="id"
+      onChange={onCountryChange}
     />
-    <SelectField id="vertical" label="Category" placeholder="Adult" className="md-cell--12" menuItems={categories} />
+    <SelectField id="vertical" label="Category" placeholder="Adult" className="md-cell--12" menuItems={categories} onChange={onCategoryChange} />
     <div className="md-grid">
       <div className="md-cell--4">
-        <Button flat primary={filtering.cpa}>
+        <Button flat primary={filtering.cpa} onClick={toggleCPA}>
           CPA
         </Button>
       </div>
       <div className="md-cell--4">
-        <Button flat primary={filtering.cpi}>
+        <Button flat primary={filtering.cpi} onClick={toggleCPI}>
           CPI
         </Button>
       </div>
       <div className="md-cell--4">
-        <Button flat primary={filtering.cpl}>
+        <Button flat primary={filtering.cpl} onClick={toggleCPL}>
           CPL
         </Button>
       </div>

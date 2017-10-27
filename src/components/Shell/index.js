@@ -5,7 +5,19 @@ import CPALogo from '../CPALogo'
 import OffersFilter from '../OffersFilter'
 
 import './Shell.css'
-const Shell = ({ countries = [], categories = [], currentFilter = {}, children }) => (
+const Shell = ({
+  countries = [],
+  categories = [],
+  currentFilter = {},
+  onNameChange,
+  onFilter,
+  onCountryChange,
+  onCategoryChange,
+  toggleCPA,
+  toggleCPI,
+  toggleCPL,
+  children
+}) => (
   <NavigationDrawer
     toolbarClassName="header"
     navItems={[
@@ -13,8 +25,14 @@ const Shell = ({ countries = [], categories = [], currentFilter = {}, children }
         key={0}
         countries={countries}
         categories={categories}
-        filtering={currentFilter.offersType}
-        onFilter={ApplyFilter(currentFilter)}
+        filtering={currentFilter.offerTypes}
+        onFilter={onFilter}
+        onNameChange={onNameChange}
+        onCountryChange={onCountryChange}
+        onCategoryChange={onCategoryChange}
+        toggleCPA={toggleCPA}
+        toggleCPI={toggleCPI}
+        toggleCPL={toggleCPL}
       />
     ]}
     drawerTitle="Market Place"
@@ -29,8 +47,4 @@ const Shell = ({ countries = [], categories = [], currentFilter = {}, children }
 )
 
 const RenderChildren = children => React.Children.map(children, child => child)
-const ApplyFilter = currentFilter => event => {
-  event.preventDefault()
-  console.log(currentFilter)
-}
 export default Shell

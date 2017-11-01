@@ -6,21 +6,29 @@ import { toCurrency, toNumber, toPercentaje } from '../../utilities/strings'
 import './OffesTable.css'
 
 const renderRows = offers =>
-  offers.map(({ id, image, name, payout, revenue, clicks, cr, erpm }) => (
-    <TableRow key={id} className="Offer">
-      <TableColumn>
-        <img src={image} alt="" className="Offer__image" />
+  offers.length ? (
+    offers.map(({ id, image, name, payout, revenue, clicks, cr, erpm }) => (
+      <TableRow key={id} className="Offer">
+        <TableColumn>
+          <img src={image} alt="" className="Offer__image" />
+        </TableColumn>
+        <TableColumn>{name}</TableColumn>
+        <TableColumn numeric className="money">
+          {toCurrency(payout)}
+        </TableColumn>
+        <TableColumn numeric>{toCurrency(revenue)}</TableColumn>
+        <TableColumn numeric>{toNumber(clicks)}</TableColumn>
+        <TableColumn numeric>{toPercentaje(cr)}</TableColumn>
+        <TableColumn numeric>{toPercentaje(erpm)}</TableColumn>
+      </TableRow>
+    ))
+  ) : (
+    <TableRow>
+      <TableColumn colSpan="8" className="md-text-center">
+        <p className="md-display-1">There are not offers with this requisites</p>
       </TableColumn>
-      <TableColumn>{name}</TableColumn>
-      <TableColumn numeric className="money">
-        {toCurrency(payout)}
-      </TableColumn>
-      <TableColumn numeric>{toCurrency(revenue)}</TableColumn>
-      <TableColumn numeric>{toNumber(clicks)}</TableColumn>
-      <TableColumn numeric>{toPercentaje(cr)}</TableColumn>
-      <TableColumn numeric>{toPercentaje(erpm)}</TableColumn>
     </TableRow>
-  ))
+  )
 
 const OffersTable = ({ offers = [], onSort, amISorted, amISorting }) => (
   <DataTable plain>

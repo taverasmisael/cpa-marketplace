@@ -13,6 +13,7 @@ const OffersFilter = ({
     cpl: false
   },
   onFilter,
+  onResetFilter,
   onNameChange,
   onCountryChange,
   onCategoryChange,
@@ -20,7 +21,7 @@ const OffersFilter = ({
   toggleCPI,
   toggleCPL
 }) => (
-  <form className="md-grid" onSubmit={onFilter}>
+  <form className="md-grid" onSubmit={onFilter} onReset={onResetFilter}>
     <h2>Filter</h2>
     <TextField
       id="name"
@@ -58,7 +59,7 @@ const OffersFilter = ({
       </div>
     </div>
     <div className="md-grid">
-      <Button raised className="md-cell">
+      <Button type="reset" raised className="md-cell">
         Clear
       </Button>
       <Button type="submit" raised secondary className="md-cell">

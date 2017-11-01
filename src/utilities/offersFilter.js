@@ -18,7 +18,6 @@ export const fullFilter = curry((filters, offers) => {
   const countryFiltered = country
     ? filter(isCountry(country), nameFiltered)
     : nameFiltered.length ? nameFiltered : offers
-  console.log('category', category)
   const categoryFiltered = category
     ? filter(isVertical(category), countryFiltered)
     : countryFiltered.length ? countryFiltered : offers

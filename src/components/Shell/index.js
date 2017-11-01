@@ -11,6 +11,7 @@ const Shell = ({
   currentFilter = {},
   onNameChange,
   onFilter,
+  onResetFilter,
   onCountryChange,
   onCategoryChange,
   toggleCPA,
@@ -27,6 +28,7 @@ const Shell = ({
         categories={categories}
         filtering={currentFilter.offerTypes}
         onFilter={onFilter}
+        onResetFilter={onResetFilter}
         onNameChange={onNameChange}
         onCountryChange={onCountryChange}
         onCategoryChange={onCategoryChange}

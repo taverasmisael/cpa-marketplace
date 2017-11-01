@@ -11,26 +11,28 @@ import './App.css'
 
 const Categories = [{ id: '1', label: 'Adult' }, { id: '2', label: 'MainStream' }, { id: '3', label: 'Incentive' }]
 
-class App extends PureComponent {
-  state = {
-    currentFilter: {
-      offerTypes: {
-        cpa: true,
-        cpi: false,
-        cpl: true
-      },
-      offerName: '',
-      country: '',
-      category: ''
+const InitialState = {
+  currentFilter: {
+    offerTypes: {
+      cpa: true,
+      cpi: false,
+      cpl: true
     },
-    offers: [],
-    filteredOffers: [],
-    countries: [],
-    offersSort: {
-      prop: 'name',
-      ascending: true
-    }
+    offerName: '',
+    country: '',
+    category: ''
+  },
+  offers: [],
+  filteredOffers: [],
+  countries: [],
+  offersSort: {
+    prop: 'name',
+    ascending: true
   }
+}
+
+class App extends PureComponent {
+  state = InitialState
   onSortOffersTable = prop => event => {
     const { offersSort: os, filteredOffers } = this.state
     const offersSort = {
@@ -52,6 +54,8 @@ class App extends PureComponent {
   onCategoryChange = val =>
     this.setState(state => ({ ...state, currentFilter: { ...state.currentFilter, category: val } }))
 
+  onResetFilter = () =>
+    this.setState(state => ({ ...state, currentFilter: InitialState.currentFilter, filteredOffers: state.offers }))
   onFilter = event => {
     event.preventDefault()
     this.setState(state => ({
@@ -99,6 +103,7 @@ class App extends PureComponent {
       onCountryChange,
       onCategoryChange,
       onFilter,
+      onResetFilter,
       toggleCPA,
       toggleCPI,
       toggleCPL
@@ -113,6 +118,7 @@ class App extends PureComponent {
         onCountryChange={onCountryChange}
         onCategoryChange={onCategoryChange}
         onFilter={onFilter}
+        onResetFilter={onResetFilter}
         toggleCPA={toggleCPA}
         toggleCPI={toggleCPI}
         toggleCPL={toggleCPL}

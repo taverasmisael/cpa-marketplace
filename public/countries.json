@@ -1,4 +1,5 @@
 [
+  {"id": "0", "label": "All"},
   { "id": "1", "label": "Afghanistan" },
   { "id": "2", "label": "Albania" },
   { "id": "3", "label": "Algeria" },

@@ -9,7 +9,12 @@ import OffersTable from '../../components/OffersTable'
 
 import './App.css'
 
-const Categories = [{ id: '1', label: 'Adult' }, { id: '2', label: 'MainStream' }, { id: '3', label: 'Incentive' }]
+const Categories = [
+  { id: '0', label: 'All' },
+  { id: '1', label: 'Adult' },
+  { id: '2', label: 'MainStream' },
+  { id: '3', label: 'Incentive' }
+]
 
 const InitialState = {
   currentFilter: {

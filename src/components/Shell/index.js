@@ -1,6 +1,7 @@
 import React from 'react'
 
 import NavigationDrawer from 'react-md/lib/NavigationDrawers'
+import Button from 'react-md/lib/Buttons'
 import CPALogo from '../CPALogo'
 import OffersFilter from '../OffersFilter'
 
@@ -21,6 +22,7 @@ const Shell = ({
 }) => (
   <NavigationDrawer
     toolbarClassName="header"
+    toolbarActions={[<Button raised secondary href="//goo.gl">Register / Login</Button>]}
     navItems={[
       <OffersFilter
         key={0}

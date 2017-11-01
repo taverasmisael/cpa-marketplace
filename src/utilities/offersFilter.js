@@ -10,19 +10,15 @@ const OfferTypesValues = cond([
   [equals('cpi'), always('2')]
 ])
 
+const isValidFilter = filter => filter && filter !== '' && filter !== '0' && filter !== 0
+
 const MapOfferTypes = compose(map(OfferTypesValues), keys, filter(identity))
 export const fullFilter = curry((filters, offers) => {
   const { offerName, country, category, offerTypes } = filters
   const ot = MapOfferTypes(offerTypes)
-  const nameFiltered = offerName ? filter(isNameOrId(offerName), offers) : offers
-  const countryFiltered = country
-    ? filter(isCountry(country), nameFiltered)
-    : nameFiltered.length ? nameFiltered : offers
-  const categoryFiltered = category
-    ? filter(isVertical(category), countryFiltered)
-    : countryFiltered.length ? countryFiltered : offers
-  const typeFilter = ot.length
-    ? filter(o => contains(prop('offerType', o), ot), categoryFiltered)
-    : categoryFiltered.length ? categoryFiltered : offers
+  const nameFiltered = isValidFilter(offerName) ? filter(isNameOrId(offerName), offers) : offers
+  const countryFiltered = isValidFilter(country) ? filter(isCountry(country), nameFiltered) : nameFiltered
+  const categoryFiltered = isValidFilter(category) ? filter(isVertical(category), countryFiltered) : countryFiltered
+  const typeFilter = ot.length ? filter(o => contains(prop('offerType', o), ot), categoryFiltered) : categoryFiltered
   return typeFilter
 })

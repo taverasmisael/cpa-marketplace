@@ -18,3 +18,9 @@ $md-secondary-color: $md-green-a-400;
   color: $md-deep-purple-700;
   font-weight: bold;
 }
+
+a {
+  color: $md-green-a-400;
+  text-decoration: none;
+  border-bottom: 2px solid;
+}

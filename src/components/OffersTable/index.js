@@ -25,7 +25,9 @@ const renderRows = offers =>
   ) : (
     <TableRow>
       <TableColumn colSpan="8" className="md-text-center">
-        <p className="md-display-1">There are not offers with this requisites</p>
+        <p className="md-display-1">
+          There are not offers with this requisites. To see more offers click <a href="//goo.gl">here</a>
+        </p>
       </TableColumn>
     </TableRow>
   )

@@ -8,7 +8,9 @@
     "country": "6",
     "payout": 0.0800000011920929,
     "cr": 58,
-    "clicks": 65046
+    "clicks": 65046,
+    "vertical": "2",
+    "offerType": "1"
   },
   {
     "id": "488",
@@ -19,7 +21,9 @@
     "country": "2",
     "payout": 2.4,
     "cr": 53,
-    "clicks": 65046
+    "clicks": 65046,
+    "vertical": "1",
+    "offerType": "0"
   },
   {
     "id": "487",
@@ -30,7 +34,9 @@
     "country": "106",
     "payout": 0.8400000333786011,
     "cr": 120,
-    "clicks": 1787867
+    "clicks": 1787867,
+    "vertical": "2",
+    "offerType": "3"
   },
   {
     "id": "486",
@@ -41,7 +47,9 @@
     "country": "200",
     "payout": 0.7,
     "cr": 4,
-    "clicks": 456456
+    "clicks": 456456,
+    "vertical": "1",
+    "offerType": "2"
   },
   {
     "id": "485",
@@ -52,7 +60,9 @@
     "country": "68",
     "payout": 0.3759999990463257,
     "cr": 1357,
-    "clicks": 46465
+    "clicks": 46465,
+    "vertical": "2",
+    "offerType": "1"
   },
   {
     "id": "484",
@@ -63,6 +73,8 @@
     "country": "85",
     "payout": 0.48000001907348633,
     "cr": 78,
-    "clicks": 1225378
+    "clicks": 1225378,
+    "vertical": "2",
+    "offerType": "3"
   }
 ]

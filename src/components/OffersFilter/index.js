@@ -39,7 +39,7 @@ const OffersFilter = ({
       itemValue="id"
       onChange={onCountryChange}
     />
-    <SelectField id="vertical" label="Category" placeholder="Adult" className="md-cell--12" menuItems={categories} onChange={onCategoryChange} />
+    <SelectField id="vertical" label="Category" placeholder="Adult" className="md-cell--12" menuItems={categories} onChange={onCategoryChange} itemValue="id" />
     <div className="md-grid">
       <div className="md-cell--4">
         <Button flat primary={filtering.cpa} onClick={toggleCPA}>

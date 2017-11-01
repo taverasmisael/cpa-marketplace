@@ -2,13 +2,14 @@ import React, { PureComponent } from 'react'
 
 import { LoadOffers, LoadCountries } from '../../services/Load'
 import * as sortOfferBy from '../../utilities/offerSort'
+import { fullFilter } from '../../utilities/offersFilter'
 
 import Shell from '../../components/Shell'
 import OffersTable from '../../components/OffersTable'
 
 import './App.css'
 
-const Categories = ['Adult', 'MainStream', 'Incentive']
+const Categories = [{ id: '1', label: 'Adult' }, { id: '2', label: 'MainStream' }, { id: '3', label: 'Incentive' }]
 
 class App extends PureComponent {
   state = {
@@ -53,7 +54,10 @@ class App extends PureComponent {
 
   onFilter = event => {
     event.preventDefault()
-    console.log(this.state.currentFilter)
+    this.setState(state => ({
+      ...state,
+      filteredOffers: fullFilter(state.currentFilter, state.offers)
+    }))
   }
   toggleCPA = () =>
     this.setState(state => ({

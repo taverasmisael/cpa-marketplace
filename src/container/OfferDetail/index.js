@@ -9,17 +9,26 @@ import { toCurrency, toNumber, toPercentaje } from '../../utilities/strings'
 
 const OfferDetail = ({ visible, onHide, offer = {} }) => (
   <DialogContainer
+    id="OfferDetailDialog"
     visible={visible}
     onHide={onHide}
     width="50%"
-    actions={
-      <Button flat primary onClick={this.hide}>
-        Ok
+    aria-describedby="OfferDetailDialog__title"
+    actions={[
+      <Button flat primary onClick={onHide}>
+        Close
+      </Button>,
+      <Button raised secondary onClick={onHide}>
+        Apply
       </Button>
-    }
+    ]}
   >
     <div className="md-grid">
-      <h2 className="md-text-center md-cell--12 md-display-1" style={{ marginBottom: '1rem' }}>
+      <h2
+        id="OfferDetailDialog__title"
+        className="md-text-center md-cell--12 md-display-1"
+        style={{ marginBottom: '1rem' }}
+      >
         {offer.name}
       </h2>
       <div className="md-grid md-cell--12">

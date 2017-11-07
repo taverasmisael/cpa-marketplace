@@ -12,7 +12,8 @@ const AppContent = ({
   isColumnSorted,
   offerDetailVisible,
   currentSelectedOffer,
-  onHideOfferDetail
+  onHideOfferDetail,
+  onSelectOffer
 }) => (
   <div className="App">
     <div className="md-grid filter-header" style={{ alignItems: 'center' }}>
@@ -41,6 +42,7 @@ const AppContent = ({
       onSort={onSortOffersTable}
       amISorted={isColumnSorted}
       amISorting={amISortingColumn}
+      onOfferClick={onSelectOffer}
     />
     <OfferDetail visible={offerDetailVisible} offer={currentSelectedOffer} onHide={onHideOfferDetail} />
   </div>

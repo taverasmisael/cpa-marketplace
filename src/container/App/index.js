@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
 import { LoadOffers, LoadCountries } from '../../services/Load'
-import * as sortOfferBy from '../../utilities/offerSort'
+import { SortBy, SortDescBy } from '../../utilities/offerSort'
 import { fullFilter } from '../../utilities/offersFilter'
 
 import Shell from '../../components/Shell'
@@ -47,8 +47,7 @@ class App extends PureComponent {
       () =>
         LoadOffers().then(offers =>
           this.setState((state, { match: { params } }) => {
-            console.log(offers, params)
-            const currentSelectedOffer = params.offerId ? offers.find(o => o.id === params.offerId) : {}
+            const currentSelectedOffer = offers.find(o => o.id === params.offerId) || {}
             const offerDetailVisible = currentSelectedOffer && !!currentSelectedOffer.name
             return { ...state, offers, filteredOffers: offers, currentSelectedOffer, offerDetailVisible }
           })
@@ -71,9 +70,9 @@ class App extends PureComponent {
       toggleCPA,
       toggleCPI,
       toggleCPL,
-      onHideOfferDetail
+      onHideOfferDetail,
+      onSelectOffer
     } = this
-    console.log(this.props.match)
 
     return (
       <Shell
@@ -98,6 +97,7 @@ class App extends PureComponent {
             offerDetailVisible={offerDetailVisible}
             currentSelectedOffer={currentSelectedOffer}
             onHideOfferDetail={onHideOfferDetail}
+            onSelectOffer={onSelectOffer}
           />
         ) : (
           <Loading />
@@ -105,17 +105,23 @@ class App extends PureComponent {
       </Shell>
     )
   }
-  onSortOffersTable = prop => event => {
-    const { offersSort: os, filteredOffers } = this.state
+  onSortOffersTable = prop => () => {
+    const { offersSort: os, filteredOffers: fo } = this.state
     const offersSort = {
       prop,
       ascending: !os.ascending
     }
-    const sortBy = os.ascending ? prop : `${prop}Desc`
-    this.setState({ filteredOffers: sortOfferBy[sortBy](filteredOffers), offersSort })
+    const sortBy = os.ascending ? SortBy : SortDescBy
+    const filteredOffers = sortBy(prop)(fo)
+    this.setState({ filteredOffers, offersSort })
   }
 
-  onHideOfferDetail = () => this.setState({offerDetailVisible: false, currentOffer: {}})
+  selectOffer = id => (id ? this.state.offers.find(o => o.id === id) || {} : {})
+  onSelectOffer = id => () => {
+    this.setState(state => ({ ...state, currentSelectedOffer: this.selectOffer(id), offerDetailVisible: true }))
+    this.props.history.push(`/${id}`)
+  }
+  onHideOfferDetail = () => this.setState({ offerDetailVisible: false, currentOffer: {} })
   isColumnSorted = prop =>
     this.state.offersSort.prop === prop ? { sorted: this.state.offersSort.ascending } : { sorted: false }
   amISortingColumn = prop => this.state.offersSort.prop === prop

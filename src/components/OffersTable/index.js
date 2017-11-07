@@ -1,17 +1,18 @@
 import React from 'react'
-import { DataTable, TableHeader, TableBody, TableRow, TableColumn } from 'react-md'
+import { DataTable, TableHeader, TableBody, TableRow, TableColumn } from 'react-md/lib/DataTables'
 
 import { toCurrency, toNumber, toPercentaje } from '../../utilities/strings'
 
 import './OffesTable.css'
 
-const renderRows = offers =>
+const renderRows = (offers, onClick) =>
   offers.length ? (
     offers.map(({ id, image, name, payout, revenue, clicks, cr, erpm }) => (
-      <TableRow key={id} className="Offer">
+      <TableRow key={id} className="Offer" onClick={onClick(id)}>
         <TableColumn>
           <img src={image} alt="" className="Offer__image" />
         </TableColumn>
+        <TableColumn>{id}</TableColumn>
         <TableColumn>{name}</TableColumn>
         <TableColumn numeric className="money">
           {toCurrency(payout)}
@@ -32,11 +33,20 @@ const renderRows = offers =>
     </TableRow>
   )
 
-const OffersTable = ({ offers = [], onSort, amISorted, amISorting }) => (
+const OffersTable = ({ offers = [], onSort, amISorted, amISorting, onOfferClick }) => (
   <DataTable plain>
     <TableHeader>
       <TableRow>
         <TableColumn>Image</TableColumn>
+        <TableColumn
+          numeric
+          onClick={onSort('id')}
+          className={amISorting('id') ? 'sorting-column' : ''}
+          sortIconBefore={false}
+          {...amISorted('id')}
+        >
+          Id
+        </TableColumn>
         <TableColumn
           onClick={onSort('name')}
           className={amISorting('name') ? 'sorting-column' : ''}
@@ -92,7 +102,7 @@ const OffersTable = ({ offers = [], onSort, amISorted, amISorting }) => (
         </TableColumn>
       </TableRow>
     </TableHeader>
-    <TableBody>{renderRows(offers)}</TableBody>
+    <TableBody>{renderRows(offers, onOfferClick)}</TableBody>
   </DataTable>
 )
 

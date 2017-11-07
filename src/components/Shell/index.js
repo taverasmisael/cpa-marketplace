@@ -39,7 +39,6 @@ const Shell = ({
         toggleCPL={toggleCPL}
       />
     ]}
-    drawerTitle="Market Place"
     desktopDrawerType={NavigationDrawer.DrawerTypes.CLIPPED}
     tabletDrawerType={NavigationDrawer.DrawerTypes.TEMPORARY}
     mobileDrawerType={NavigationDrawer.DrawerTypes.TEMPORARY}

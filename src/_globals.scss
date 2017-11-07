@@ -9,6 +9,11 @@ $md-secondary-color: $md-green-a-400;
 .md-list--nested-1 .md-list-tile {
   padding: 16px;
 }
+
+img {
+  max-width: 100%;
+  height: auto;
+}
 .money {
   color: $md-green-a-400;
   font-weight: bold;

@@ -5,6 +5,8 @@ import { LoadOffers, LoadCountries } from '../../services/Load'
 import * as sortOfferBy from '../../utilities/offerSort'
 import { fullFilter } from '../../utilities/offersFilter'
 
+import OfferDetail from '../OfferDetail'
+
 import Shell from '../../components/Shell'
 import OffersTable from '../../components/OffersTable'
 import Sorting from '../../components/Sorting'
@@ -35,7 +37,9 @@ const InitialState = {
   offersSort: {
     prop: 'name',
     ascending: true
-  }
+  },
+  offerDetailVisible: false,
+  currentSelectedOffer: {}
 }
 
 class App extends PureComponent {
@@ -46,7 +50,7 @@ class App extends PureComponent {
     LoadCountries().then(countries => this.setState({ countries }))
   }
   render() {
-    const { currentFilter, countries, filteredOffers } = this.state
+    const { currentFilter, countries, filteredOffers, currentSelectedOffer, offerDetailVisible } = this.state
     const {
       onSortOffersTable,
       isColumnSorted,
@@ -103,6 +107,7 @@ class App extends PureComponent {
             amISorted={isColumnSorted}
             amISorting={amISortingColumn}
           />
+          <OfferDetail visible={offerDetailVisible} offer={currentSelectedOffer} />
         </div>
       </Shell>
     )

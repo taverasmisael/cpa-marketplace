@@ -1,15 +1,12 @@
 import React, { PureComponent } from 'react'
-import { MenuButton } from 'react-md'
 
 import { LoadOffers, LoadCountries } from '../../services/Load'
 import * as sortOfferBy from '../../utilities/offerSort'
 import { fullFilter } from '../../utilities/offersFilter'
 
-import OfferDetail from '../OfferDetail'
-
 import Shell from '../../components/Shell'
-import OffersTable from '../../components/OffersTable'
-import Sorting from '../../components/Sorting'
+import Loading from '../../components/Loading'
+import AppContent from '../AppContent'
 
 import './App.css'
 
@@ -46,7 +43,18 @@ class App extends PureComponent {
   state = InitialState
 
   componentDidMount() {
-    LoadOffers().then(offers => this.setState({ offers, filteredOffers: offers }))
+    setTimeout(
+      () =>
+        LoadOffers().then(offers =>
+          this.setState((state, { match: { params } }) => {
+            console.log(offers, params)
+            const currentSelectedOffer = params.offerId ? offers.find(o => o.id === params.offerId) : {}
+            const offerDetailVisible = currentSelectedOffer && !!currentSelectedOffer.name
+            return { ...state, offers, filteredOffers: offers, currentSelectedOffer, offerDetailVisible }
+          })
+        ),
+      2000
+    )
     LoadCountries().then(countries => this.setState({ countries }))
   }
   render() {
@@ -62,8 +70,10 @@ class App extends PureComponent {
       onResetFilter,
       toggleCPA,
       toggleCPI,
-      toggleCPL
+      toggleCPL,
+      onHideOfferDetail
     } = this
+    console.log(this.props.match)
 
     return (
       <Shell
@@ -79,36 +89,19 @@ class App extends PureComponent {
         toggleCPI={toggleCPI}
         toggleCPL={toggleCPL}
       >
-        <div className="App">
-          <div className="md-grid filter-header" style={{ alignItems: 'center' }}>
-            <h1 className="md-cell--11">Market Place</h1>
-            <div className="md-cell--1">
-              <MenuButton
-                id="menu-button-2"
-                anchor={{
-                  x: MenuButton.HorizontalAnchors.INNER_RIGHT,
-                  y: MenuButton.VerticalAnchors.BOTTOM
-                }}
-                position={MenuButton.Positions.BOTTOM_RIGHT}
-                flat
-                primary
-                menuItems={<Sorting onSort={onSortOffersTable} amISorting={amISortingColumn} />}
-              >
-                Sort
-              </MenuButton>
-            </div>
-          </div>
-          <div className="dividers__border-example">
-            <div className="md-divider-border md-divider-border--top" />
-          </div>
-          <OffersTable
-            offers={filteredOffers}
-            onSort={onSortOffersTable}
-            amISorted={isColumnSorted}
-            amISorting={amISortingColumn}
+        {filteredOffers.length ? (
+          <AppContent
+            onSortOffersTable={onSortOffersTable}
+            amISortingColumn={amISortingColumn}
+            filteredOffers={filteredOffers}
+            isColumnSorted={isColumnSorted}
+            offerDetailVisible={offerDetailVisible}
+            currentSelectedOffer={currentSelectedOffer}
+            onHideOfferDetail={onHideOfferDetail}
           />
-          <OfferDetail visible={offerDetailVisible} offer={currentSelectedOffer} />
-        </div>
+        ) : (
+          <Loading />
+        )}
       </Shell>
     )
   }
@@ -122,6 +115,7 @@ class App extends PureComponent {
     this.setState({ filteredOffers: sortOfferBy[sortBy](filteredOffers), offersSort })
   }
 
+  onHideOfferDetail = () => this.setState({offerDetailVisible: false, currentOffer: {}})
   isColumnSorted = prop =>
     this.state.offersSort.prop === prop ? { sorted: this.state.offersSort.ascending } : { sorted: false }
   amISortingColumn = prop => this.state.offersSort.prop === prop
